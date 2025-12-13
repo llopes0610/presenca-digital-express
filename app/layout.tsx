@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 
@@ -7,7 +8,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Presença Digital Express | Site Profissional em 48h | Lucas Lopes",
-  description: "Site profissional + Identidade visual + Google Meu Negócio em 48 horas. A partir de R$ 197. Desenvolvedor full stack em São Paulo. Garantia total.",
+  description:
+    "Site profissional + Identidade visual + Google Meu Negócio em 48 horas. A partir de R$ 197. Desenvolvedor full stack em São Paulo. Garantia total.",
   keywords: [
     "criação de sites",
     "site profissional",
@@ -21,7 +23,7 @@ export const metadata: Metadata = {
     "Lucas Lopes",
     "Next.js",
     "React",
-    "São Paulo"
+    "São Paulo",
   ],
   authors: [{ name: "Lucas Lopes" }],
   creator: "Lucas Lopes",
@@ -32,13 +34,15 @@ export const metadata: Metadata = {
     locale: "pt_BR",
     url: "https://presenca-digital-express.com.br",
     title: "Presença Digital Express | Site Profissional em 48h",
-    description: "Site profissional + Identidade visual + Google Meu Negócio em 48 horas. A partir de R$ 197.",
+    description:
+      "Site profissional + Identidade visual + Google Meu Negócio em 48 horas. A partir de R$ 197.",
     siteName: "Presença Digital Express",
   },
   twitter: {
     card: "summary_large_image",
     title: "Presença Digital Express | Site Profissional em 48h",
-    description: "Site profissional + Identidade visual + Google Meu Negócio em 48 horas. A partir de R$ 197.",
+    description:
+      "Site profissional + Identidade visual + Google Meu Negócio em 48 horas. A partir de R$ 197.",
   },
 };
 
@@ -49,17 +53,37 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className="scroll-smooth">
+
+      {/* Google Ads Tag */}
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=AW-382161513"
+        strategy="afterInteractive"
+      />
+      <Script id="google-ads" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'AW-382161513');
+        `}
+      </Script>
+
       <body className={inter.className}>
         {children}
+
+        {/* Botão flutuante WhatsApp */}
         <WhatsAppButton />
-        
+
         {/* Footer */}
         <footer className="bg-dark-900 text-white py-12">
           <div className="container-custom">
             <div className="grid md:grid-cols-3 gap-8 mb-8">
+              
               {/* Coluna 1 */}
               <div>
-                <h3 className="text-xl font-bold mb-4">Presença Digital Express</h3>
+                <h3 className="text-xl font-bold mb-4">
+                  Presença Digital Express
+                </h3>
                 <p className="text-dark-400 leading-relaxed">
                   Transformando negócios invisíveis em marcas encontráveis.
                   Site profissional em 48 horas.
@@ -70,7 +94,7 @@ export default function RootLayout({
               <div>
                 <h4 className="font-semibold mb-4">Contato</h4>
                 <div className="space-y-2 text-dark-400">
-                  <p>📱 (11) 99999-9999</p>
+                  <p>📱 (11) 98707-9347</p>
                   <p>📧 lucas@lucas-lopes.dev</p>
                   <p>📍 São Paulo, Brasil</p>
                 </div>
@@ -80,13 +104,24 @@ export default function RootLayout({
               <div>
                 <h4 className="font-semibold mb-4">Links</h4>
                 <div className="space-y-2">
-                  <a href="#plans" className="block text-dark-400 hover:text-white transition-colors">
+                  <a
+                    href="#plans"
+                    className="block text-dark-400 hover:text-white transition-colors"
+                  >
                     Planos e Preços
                   </a>
-                  <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" className="block text-dark-400 hover:text-white transition-colors">
+                  <a
+                    href="https://wa.me/5511987079347"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-dark-400 hover:text-white transition-colors"
+                  >
                     WhatsApp
                   </a>
-                  <a href="mailto:lucas@lucas-lopes.dev" className="block text-dark-400 hover:text-white transition-colors">
+                  <a
+                    href="mailto:lucas@lucas-lopes.dev"
+                    className="block text-dark-400 hover:text-white transition-colors"
+                  >
                     Email
                   </a>
                 </div>
@@ -94,8 +129,13 @@ export default function RootLayout({
             </div>
 
             <div className="pt-8 border-t border-dark-800 text-center text-dark-400">
-              <p>© 2024 Lucas Lopes - Presença Digital Express. Todos os direitos reservados.</p>
-              <p className="text-sm mt-2">Desenvolvido com Next.js + React ⚡</p>
+              <p>
+                © 2024 Lucas Lopes - Presença Digital Express. Todos os direitos
+                reservados.
+              </p>
+              <p className="text-sm mt-2">
+                Desenvolvido com Next.js + React ⚡
+              </p>
             </div>
           </div>
         </footer>
