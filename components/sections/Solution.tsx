@@ -28,8 +28,8 @@ export function Solution() {
     },
     {
       icon: Zap,
-      title: 'Entrega em 48h',
-      description: 'Processos otimizados para você estar online em 2 dias úteis. Garantido.',
+      title: 'Entrega em 72h',
+      description: 'Processos otimizados para você estar online em 3 dias úteis. Garantido.',
     },
     {
       icon: Shield,

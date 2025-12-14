@@ -26,8 +26,8 @@ export const CONTACT_INFO = {
 
 export const WHATSAPP_MESSAGES = {
   default: 'Olá! Gostaria de saber mais sobre o Presença Digital Express',
-  basic: 'Olá! Tenho interesse no Plano BASIC (R$ 197)',
-  pro: 'Olá! Tenho interesse no Plano PRO (R$ 297)',
-  premium: 'Olá! Tenho interesse no Plano PREMIUM (R$ 497)',
+  basic: 'Olá! Tenho interesse no Plano BASIC (R$ 267.99)',
+  pro: 'Olá! Tenho interesse no Plano PRO (R$ 429.90)',
+  premium: 'Olá! Tenho interesse no Plano PREMIUM (R$ 667,90)',
   custom: 'Olá! Gostaria de um orçamento personalizado',
 };
