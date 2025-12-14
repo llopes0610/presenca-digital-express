@@ -8,7 +8,7 @@ const client = new MercadoPagoConfig({
 const PLANS = {
   basic: {
     title: "Presença Digital Express - Basic",
-    price: 267.99,
+    price: 10.90,
   },
   pro: {
     title: "Presença Digital Express - Pro",
