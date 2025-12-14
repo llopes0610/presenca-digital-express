@@ -115,7 +115,7 @@ export function Solution() {
                     Presença Digital Express
                   </h4>
                   <ul className="space-y-2 text-dark-600">
-                    <li>• A partir de R$ 197 (pagamento único)</li>
+                    <li>• A partir de R$ 267 (pagamento único)</li>
                     <li>• Entrega garantida em 72 horas</li>
                     <li>• Processo ágil e transparente</li>
                     <li>• Hospedagem gratuita incluída</li>
