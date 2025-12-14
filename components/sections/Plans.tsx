@@ -2,11 +2,13 @@
 
 import React from "react";
 import { Check, Star, Zap, Crown, ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 
 interface Plan {
   name: string;
+  slug: "basic" | "pro" | "premium";
   price: number;
   subtitle: string;
   description: string;
@@ -18,9 +20,12 @@ interface Plan {
 }
 
 export function Plans() {
+  const router = useRouter();
+
   const plans: Plan[] = [
     {
       name: "Basic",
+      slug: "basic",
       price: 267.99,
       subtitle: "Essencial",
       description: "Para quem precisa de presença online profissional",
@@ -39,6 +44,7 @@ export function Plans() {
     },
     {
       name: "Pro",
+      slug: "pro",
       price: 429.9,
       subtitle: "Mais escolhido",
       description: "Ideal para profissionais e negócios em crescimento",
@@ -57,6 +63,7 @@ export function Plans() {
     },
     {
       name: "Premium",
+      slug: "premium",
       price: 667.9,
       subtitle: "Completo",
       description: "Presença digital avançada e escalável",
@@ -78,46 +85,73 @@ export function Plans() {
   return (
     <section id="plans" className="section-padding bg-white">
       <div className="container-custom">
+        {/* Header */}
         <div className="text-center mb-16">
           <h2 className="heading-lg">
-            Planos do <span className="gradient-text">Presença Digital Express</span>
+            Planos do{" "}
+            <span className="gradient-text">Presença Digital Express</span>
           </h2>
           <p className="text-dark-600 mt-4">
             Pagamento único • Sem mensalidade • Entrega após briefing aprovado
           </p>
         </div>
 
+        {/* Cards */}
         <div className="grid md:grid-cols-3 gap-8">
-          {plans.map((plan, index) => {
+          {plans.map((plan) => {
             const Icon = plan.icon;
 
             return (
-              <Card key={index} className={plan.popular ? "border-2 border-secondary-500 scale-105" : ""}>
-                <div className="p-8">
+              <Card
+                key={plan.slug}
+                className={`transition-all ${
+                  plan.popular
+                    ? "border-2 border-secondary-500 scale-105 shadow-xl"
+                    : "hover:shadow-lg"
+                }`}
+              >
+                <div className="p-8 flex flex-col h-full">
+                  {/* Icon */}
                   <Icon className="w-8 h-8 text-primary-600 mb-4" />
+
+                  {/* Title */}
                   <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
                   <p className="text-dark-600 mb-4">{plan.subtitle}</p>
 
+                  {/* Price */}
                   <div className="text-4xl font-bold mb-6">
                     R$ {plan.price.toFixed(2)}
                   </div>
 
-                  <Button className="w-full mb-6" icon={ArrowRight}>
+                  {/* CTA */}
+                  <Button
+                    className="w-full mb-6"
+                    icon={ArrowRight}
+                    onClick={() =>
+                      router.push(`/checkout?plan=${plan.slug}`)
+                    }
+                  >
                     Contratar
                   </Button>
 
-                  <ul className="space-y-3">
+                  {/* Features */}
+                  <ul className="space-y-3 flex-grow">
                     {plan.features.map((feature, i) => (
                       <li key={i} className="flex gap-2">
-                        <Check className="w-5 h-5 text-secondary-600" />
+                        <Check className="w-5 h-5 text-secondary-600 flex-shrink-0" />
                         <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
 
-                  <div className="mt-6 text-sm text-dark-600">
-                    <p><strong>Entrega:</strong> {plan.delivery}</p>
-                    <p><strong>Garantia:</strong> {plan.guarantee}</p>
+                  {/* Footer */}
+                  <div className="mt-6 text-sm text-dark-600 border-t pt-4">
+                    <p>
+                      <strong>Entrega:</strong> {plan.delivery}
+                    </p>
+                    <p>
+                      <strong>Garantia:</strong> {plan.guarantee}
+                    </p>
                   </div>
                 </div>
               </Card>
