@@ -1,100 +1,69 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import MercadoPagoConfig, { Preference } from "mercadopago";
 
-// Cliente Mercado Pago
 const client = new MercadoPagoConfig({
   accessToken: process.env.MERCADO_PAGO_ACCESS_TOKEN!,
 });
 
-export async function POST(request: NextRequest) {
+const PLANS = {
+  basic: {
+    title: "Presença Digital Express - Basic",
+    price: 267.99,
+  },
+  pro: {
+    title: "Presença Digital Express - Pro",
+    price: 429.9,
+  },
+  premium: {
+    title: "Presença Digital Express - Premium",
+    price: 667.9,
+  },
+};
+
+export async function POST(req: Request) {
   try {
-    const { planId, customerName, customerEmail } = await request.json();
+    const { planId, customerEmail, customerName } = await req.json();
 
-    if (!planId || !customerName || !customerEmail) {
-      return NextResponse.json(
-        { error: "Dados incompletos" },
-        { status: 400 }
-      );
-    }
+    const plan = PLANS[planId as keyof typeof PLANS];
 
-    // Planos (em reais)
-    const plans: Record<
-      string,
-      { name: string; price: number }
-    > = {
-      basic: {
-        name: "Presença Digital Express - Basic",
-        price: 197,
-      },
-      pro: {
-        name: "Presença Digital Express - Pro",
-        price: 297,
-      },
-      premium: {
-        name: "Presença Digital Express - Premium",
-        price: 497,
-      },
-    };
-
-    const selectedPlan = plans[planId];
-    if (!selectedPlan) {
+    if (!plan) {
       return NextResponse.json({ error: "Plano inválido" }, { status: 400 });
     }
 
     const preference = new Preference(client);
 
-    // ================================
-    // 🚀 PIX + Cartão + Boleto (CORRETO)
-    // ================================
-    const response: any = await preference.create({
+    const result = await preference.create({
       body: {
-        binary_mode: false, // permite boleto e cartão
-
         items: [
           {
-            id: planId,
-            title: selectedPlan.name,
+            id: planId, // <- ADICIONE ESTA LINHA
+            title: plan.title,
             quantity: 1,
-            unit_price: selectedPlan.price,
             currency_id: "BRL",
+            unit_price: plan.price,
           },
         ],
-
         payer: {
           name: customerName,
           email: customerEmail,
         },
-
         back_urls: {
-          success: `${process.env.NEXT_PUBLIC_SITE_URL}/pagamento/sucesso`,
-          failure: `${process.env.NEXT_PUBLIC_SITE_URL}/pagamento/cancelado`,
-          pending: `${process.env.NEXT_PUBLIC_SITE_URL}/pagamento/pendente`,
+          success: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/sucesso`,
+          failure: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/cancelado`,
+          pending: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/pendente`,
         },
-
-        auto_return: "approved",
-
-        payment_methods: {
-          // ❗ permitido deixar tudo liberado
-          excluded_payment_methods: [],
-          excluded_payment_types: [],
-          installments: 12, // habilita parcelamento
-        },
+        auto_return: "approved" as const,
       },
     });
 
     return NextResponse.json({
-      success: true,
-      init_point: response.init_point,
+      init_point: result.init_point,
     });
-
-  } catch (err: any) {
-    console.error("🔥 Erro Mercado Pago:", err);
-
+  } catch (error) {
+    console.error("Erro Mercado Pago:", error);
     return NextResponse.json(
-      { error: err.message || "Erro ao criar preferência" },
+      { error: "Erro ao criar pagamento" },
       { status: 500 }
     );
   }
 }
-
-

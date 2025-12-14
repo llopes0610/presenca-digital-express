@@ -21,75 +21,64 @@ export function Hero() {
 
   return (
     <section className="relative overflow-hidden gradient-dark">
-
-      {/* Background decorativo */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-500/20 rounded-full blur-3xl" />
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary-500/20 rounded-full blur-3xl" />
       </div>
 
       <div className="container-custom section-padding relative z-10">
-
         <div className="grid lg:grid-cols-2 gap-12 items-center">
 
-          {/* ------------------------- */}
-          {/* COLUNA ESQUERDA */}
-          {/* ------------------------- */}
           <div className="text-white animate-fade-in">
-
-            {/* Badge */}
             <div className="mb-6">
               <Badge variant="success" className="animate-pulse">
                 <Zap className="w-4 h-4 mr-1" />
-                Entrega em 72 horas
+                Entrega em até 72h
               </Badge>
             </div>
 
-            {/* Headline */}
             <h1 className="heading-xl mb-6 leading-tight">
               Seu Negócio Online{" "}
               <span className="text-secondary-400">Profissional</span> e{" "}
-              <span className="text-secondary-400">Vendendo</span>
+              <span className="text-secondary-400">Confiável</span>
               <br />
-              <span className="text-primary-400">Em Apenas 72 Horas</span>
+              <span className="text-primary-400">
+                Em Até 72 Horas Após o Briefing
+              </span>
             </h1>
 
-            {/* Subheadline */}
             <p className="text-xl text-dark-200 mb-8 leading-relaxed">
-              Site completo + Identidade visual + Google otimizado.
+              Criação de site profissional sob medida para o seu negócio.
               <br />
-              Tudo que você precisa para ser encontrado e gerar confiança.
+              Tudo começa com o levantamento completo de requisitos.
               <br />
               <span className="font-semibold text-white">
-                Sem mensalidade. Sem enrolação.
+                Sem mensalidade. Pagamento único.
               </span>
             </p>
 
-            {/* Benefícios */}
             <div className="space-y-3 mb-8">
               {[
-                "Entrega garantida em 2 dias úteis",
-                "100% personalizado para seu negócio",
-                "Tecnologia profissional (Next.js + React)",
-                "Garantia de 100% do dinheiro de volta",
+                "Prazo contado após aprovação do briefing",
+                "Projeto personalizado para seu negócio",
+                "Tecnologia moderna (Next.js + React)",
+                "Garantia total de satisfação",
               ].map((benefit, index) => (
                 <div key={index} className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-secondary-400 flex-shrink-0" />
+                  <CheckCircle className="w-5 h-5 text-secondary-400" />
                   <span className="text-dark-100">{benefit}</span>
                 </div>
               ))}
             </div>
 
-            {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4">
               <Button
                 variant="secondary"
                 size="lg"
                 icon={ArrowRight}
                 onClick={handleCTA}
-                className="text-lg"
               >
-                Começar Agora
+                Solicitar Atendimento
               </Button>
 
               <Button
@@ -102,7 +91,6 @@ export function Hero() {
               </Button>
             </div>
 
-            {/* Trust */}
             <div className="mt-8 flex items-center gap-6 text-sm text-dark-300">
               <div className="flex items-center gap-2">
                 <Shield className="w-5 h-5 text-secondary-400" />
@@ -110,81 +98,36 @@ export function Hero() {
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-5 h-5 text-secondary-400" />
-                <span>50+ Projetos</span>
+                <span>Projetos Profissionais</span>
               </div>
             </div>
           </div>
 
-          {/* ------------------------- */}
-          {/* COLUNA DIREITA - MOCKUP */}
-          {/* ------------------------- */}
           <div className="relative hidden lg:flex items-center justify-center">
-
-            {/* Glow */}
             <div className="absolute -inset-10 bg-primary-500/10 blur-3xl rounded-3xl opacity-70" />
 
-            {/* Mockup container */}
-            <div className="relative w-[520px] rounded-3xl shadow-[0_0_40px_rgba(0,0,0,0.45)] border border-white/10 backdrop-blur-xl overflow-hidden">
-              <div className="rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-white/5 p-2">
-
+            <div className="relative w-[520px] rounded-3xl shadow-2xl border border-white/10 backdrop-blur-xl overflow-hidden">
+              <div className="bg-white/5 p-2 rounded-2xl">
                 <img
                   src="/mockups/pedify-mockup.png"
                   alt="Preview do site"
-                  className="w-full h-auto rounded-xl shadow-xl object-cover scale-[0.98] hover:scale-100 transition-transform duration-300"
+                  className="w-full rounded-xl object-cover"
                 />
               </div>
             </div>
 
-            {/* Card superior */}
-            <div className="absolute top-10 right-6 bg-white/90 rounded-xl shadow-lg px-4 py-2 backdrop-blur-md border border-white/30">
-              <div className="flex items-center gap-2 text-sm font-semibold">
-                <div className="w-2 h-2 bg-green-500 rounded-full" />
-                Online em 72h
-              </div>
-            </div>
-
-            {/* Card inferior */}
-            <div className="absolute bottom-8 left-4 bg-white/90 rounded-xl shadow-lg px-5 py-3 backdrop-blur-md border border-white/30">
+            <div className="absolute bottom-8 left-4 bg-white/90 rounded-xl px-5 py-3 shadow-lg">
               <div className="text-sm">
                 <div className="font-semibold text-dark-900">A partir de</div>
-                <div className="text-2xl font-bold text-primary-600">R$ 197</div>
+                <div className="text-2xl font-bold text-primary-600">
+                  R$ 267,99
+                </div>
               </div>
             </div>
           </div>
 
         </div>
       </div>
-
-      {/* Wave divisor */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg
-          viewBox="0 0 1440 120"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="
-              M0 120
-              L60 110
-              C120 100 240 80 360 70
-              C480 60 600 60 720 65
-              C840 70 960 80 1080 85
-              C1200 90 1320 90 1380 90
-              L1440 90
-              V120
-              H1380
-              C1320 120 1200 120 1080 120
-              C960 120 840 120 720 120
-              C600 120 480 120 360 120
-              C240 120 120 120 60 120
-              H0
-              Z
-            "
-            fill="white"
-          />
-        </svg>
-      </div>
-
     </section>
   );
 }

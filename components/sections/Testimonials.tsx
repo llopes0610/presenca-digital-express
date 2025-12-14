@@ -25,7 +25,7 @@ export function Testimonials() {
       role: 'Arquiteta',
       image: '👩‍🎨',
       rating: 5,
-      text: 'Precisava de algo rápido para apresentar em uma reunião importante. Lucas entregou em 48h exatas, com direito a logo, cartão digital e site. Fechei o projeto! Super recomendo.',
+      text: 'Precisava de algo rápido para apresentar em uma reunião importante. Lucas entregou em 72h exatas, com direito a logo, cartão digital e site. Fechei o projeto! Super recomendo.',
     },
     {
       name: 'Bruno Silva',
@@ -113,7 +113,7 @@ export function Testimonials() {
           {[
             { number: '50+', label: 'Projetos Entregues' },
             { number: '100%', label: 'Satisfação' },
-            { number: '48h', label: 'Tempo Médio' },
+            { number: '72h', label: 'Tempo Médio' },
             { number: '4.9/5', label: 'Avaliação Média' },
           ].map((stat, index) => (
             <div key={index} className="text-center animate-scale-in" style={{ animationDelay: `${index * 100}ms` } as React.CSSProperties}>

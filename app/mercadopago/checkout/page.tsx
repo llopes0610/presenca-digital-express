@@ -11,89 +11,87 @@ export default function CheckoutPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
+  const isFormValid = name.trim() !== "" && email.trim() !== "";
+
   const handleCheckout = async () => {
-    if (!email || !name) {
-      alert("Preencha seu nome e e-mail.");
-      return;
-    }
+    if (!isFormValid || loading) return;
 
     setLoading(true);
 
-    const res = await fetch("/api/mercadopago/checkout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        planId: plan,
-        customerEmail: email,
-        customerName: name,
-      }),
-    });
+    try {
+      const res = await fetch("/api/mercadopago/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          planId: plan,
+          customerEmail: email,
+          customerName: name,
+        }),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (data?.init_point) {
-      window.location.href = data.init_point; // Redireciona para o Mercado Pago
-    } else {
+      if (data?.init_point) {
+        window.location.href = data.init_point;
+        return;
+      }
+
       alert("Erro ao iniciar o pagamento.");
+    } catch (err) {
+      alert("Erro de conexão com o pagamento.");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-dark-50 via-white to-primary-50/30 flex items-center justify-center px-4 py-16">
-      <Card className="max-w-xl w-full p-10 shadow-2xl border-primary-200 backdrop-blur-xl animate-fade">
-        
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-50 via-white to-primary-50 px-4">
+      <Card className="max-w-xl w-full p-10 shadow-2xl">
         <h1 className="heading-md text-center mb-4">Finalizar Pagamento</h1>
-        <p className="text-center text-dark-600 mb-8">
-          Complete suas informações para concluir sua compra.
-        </p>
 
-        {/* Form */}
         <div className="space-y-6">
-          {/* Nome */}
           <div>
-            <label className="text-sm font-semibold mb-2 flex items-center gap-2">
+            <label className="text-sm font-semibold flex gap-2 mb-2">
               <User className="w-4 h-4" /> Nome Completo
             </label>
             <input
-              type="text"
-              className="w-full px-4 py-3 rounded-lg border border-dark-200 bg-white focus:ring-2 focus:ring-primary-500 outline-none"
-              placeholder="Seu nome completo"
+              className="w-full px-4 py-3 rounded-lg border"
+              value={name}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
 
-          {/* Email */}
           <div>
-            <label className="text-sm font-semibold mb-2 flex items-center gap-2">
+            <label className="text-sm font-semibold flex gap-2 mb-2">
               <Mail className="w-4 h-4" /> E-mail
             </label>
             <input
               type="email"
-              className="w-full px-4 py-3 rounded-lg border border-dark-200 bg-white focus:ring-2 focus:ring-primary-500 outline-none"
-              placeholder="seuemail@gmail.com"
+              className="w-full px-4 py-3 rounded-lg border"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
-          {/* Plano */}
           <div>
-            <label className="text-sm font-semibold mb-2">Escolha o Plano</label>
+            <label className="text-sm font-semibold mb-2 block">
+              Plano
+            </label>
             <select
-              className="w-full px-4 py-3 rounded-lg border border-dark-200 bg-white focus:ring-2 focus:ring-primary-500 outline-none"
+              className="w-full px-4 py-3 rounded-lg border"
+              value={plan}
               onChange={(e) => setPlan(e.target.value)}
             >
-              <option value="basic">Basic — R$ 197</option>
-              <option value="pro">Pro — R$ 297</option>
-              <option value="premium">Premium — R$ 497</option>
+              <option value="basic">Basic — R$ 267,99</option>
+              <option value="pro">Pro — R$ 429,90</option>
+              <option value="premium">Premium — R$ 667,90</option>
             </select>
           </div>
 
-          {/* Botão */}
           <Button
-            className="w-full h-12 text-lg font-semibold mt-4 inline-flex items-center justify-center"
             onClick={handleCheckout}
+            disabled={!isFormValid || loading}
+            className="w-full h-12 text-lg"
           >
             {loading ? (
               <Loader2 className="animate-spin" />
@@ -104,9 +102,8 @@ export default function CheckoutPage() {
             )}
           </Button>
 
-          {/* Segurança */}
-          <p className="text-xs text-dark-500 flex items-center justify-center gap-2 mt-3">
-            <Lock className="w-4 h-4" /> Pagamento 100% seguro via Mercado Pago
+          <p className="text-xs text-center flex gap-2 justify-center">
+            <Lock className="w-4 h-4" /> Pagamento seguro via Mercado Pago
           </p>
         </div>
       </Card>

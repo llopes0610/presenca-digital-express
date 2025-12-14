@@ -21,183 +21,104 @@ export function Plans() {
   const plans: Plan[] = [
     {
       name: "Basic",
-      price: 197,
-      subtitle: "Comece agora",
-      description: "Ideal para quem precisa estar online rápido",
+      price: 267.99,
+      subtitle: "Essencial",
+      description: "Para quem precisa de presença online profissional",
       icon: Zap,
       popular: false,
       features: [
         "Site profissional de 1 página",
-        "Domínio .com.br incluso (1 ano)",
         "Design responsivo",
-        "Formulário → WhatsApp",
+        "Botão WhatsApp",
+        "SEO básico",
         "Google Meu Negócio",
-        "3 ajustes (7 dias)",
-        "Tutorial em vídeo",
+        "3 ajustes após entrega",
       ],
-      delivery: "48h úteis",
+      delivery: "Até 72h após levantamento de requisitos",
       guarantee: "7 dias",
     },
     {
       name: "Pro",
-      price: 297,
-      subtitle: "Mais vendido",
-      description: "Solução completa para profissionais",
+      price: 429.9,
+      subtitle: "Mais escolhido",
+      description: "Ideal para profissionais e negócios em crescimento",
       icon: Star,
       popular: true,
       features: [
-        "TUDO do Basic +",
-        "Site de até 3 páginas",
-        "Logo + paleta de cores",
-        "Cartão digital",
-        "Integração Instagram",
+        "Tudo do Basic",
+        "Site com até 3 páginas",
+        "Identidade visual (logo + cores)",
         "SEO otimizado",
-        "5 ajustes (10 dias)",
-        "Consultoria 30min",
+        "Integração Instagram",
+        "5 ajustes após entrega",
       ],
-      delivery: "48h úteis",
+      delivery: "Até 72h após levantamento de requisitos",
       guarantee: "10 dias",
     },
     {
       name: "Premium",
-      price: 497,
-      subtitle: "Solução completa",
-      description: "Tudo que você precisa para crescer",
+      price: 667.9,
+      subtitle: "Completo",
+      description: "Presença digital avançada e escalável",
       icon: Crown,
       popular: false,
       features: [
-        "TUDO do Pro +",
-        "Site até 5 páginas",
+        "Tudo do Pro",
+        "Site com até 5 páginas",
         "Identidade visual completa",
-        "3 posts Instagram",
-        "5 fotos com IA",
-        "Agendamento online",
-        "Pixel Facebook",
-        "SSL premium",
-        "10 ajustes (15 dias)",
-        "2 consultorias (1h)",
+        "Conteúdo otimizado",
+        "Integrações avançadas",
+        "10 ajustes após entrega",
       ],
-      delivery: "48h úteis",
+      delivery: "Até 72h após levantamento de requisitos",
       guarantee: "15 dias",
     },
   ];
 
-  const handleMercadoPagoCheckout = async (plan: Plan) => {
-    try {
-      const res = await fetch("/api/mercadopago/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          planId: plan.name.toLowerCase(),
-          customerEmail: "cliente@gmail.com",
-          customerName: "Cliente",
-        }),
-      });
-
-      const data = await res.json();
-
-      if (data?.init_point) {
-        window.location.href = data.init_point;
-        return;
-      }
-
-      alert("Erro ao redirecionar para o pagamento.");
-    } catch (error) {
-      console.error(error);
-      alert("Erro ao iniciar checkout.");
-    }
-  };
-
   return (
-    <section
-      id="plans"
-      className="section-padding bg-gradient-to-br from-dark-50 via-white to-primary-50/30"
-    >
+    <section id="plans" className="section-padding bg-white">
       <div className="container-custom">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="heading-lg mb-6">
-            Escolha o Plano Ideal{" "}
-            <span className="gradient-text">Para Seu Negócio</span>
+        <div className="text-center mb-16">
+          <h2 className="heading-lg">
+            Planos do <span className="gradient-text">Presença Digital Express</span>
           </h2>
-          <p className="text-xl text-dark-600">
-            Pagamento único. Sem mensalidade. Garantia total de satisfação.
+          <p className="text-dark-600 mt-4">
+            Pagamento único • Sem mensalidade • Entrega após briefing aprovado
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto mb-12">
+        <div className="grid md:grid-cols-3 gap-8">
           {plans.map((plan, index) => {
             const Icon = plan.icon;
 
             return (
-              <Card
-                key={index}
-                className={`relative overflow-hidden ${
-                  plan.popular ? "border-2 border-secondary-500 shadow-2xl scale-105" : ""
-                }`}
-              >
+              <Card key={index} className={plan.popular ? "border-2 border-secondary-500 scale-105" : ""}>
                 <div className="p-8">
+                  <Icon className="w-8 h-8 text-primary-600 mb-4" />
+                  <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
+                  <p className="text-dark-600 mb-4">{plan.subtitle}</p>
 
-                  <div className="mb-4">
-                    <div
-                      className={`inline-flex p-3 rounded-xl ${
-                        plan.popular ? "gradient-secondary" : "gradient-primary"
-                      }`}
-                    >
-                      <Icon className="w-8 h-8 text-white" />
-                    </div>
+                  <div className="text-4xl font-bold mb-6">
+                    R$ {plan.price.toFixed(2)}
                   </div>
 
-                  <h3 className="text-2xl font-bold text-dark-900 mb-2">
-                    {plan.name}
-                  </h3>
-
-                  {!plan.popular && (
-                    <p className="text-sm text-dark-600 mb-4">{plan.subtitle}</p>
-                  )}
-
-                  <div className="mb-6">
-                    <span className="text-5xl font-bold text-dark-900">
-                      R$ {plan.price}
-                    </span>
-                    <p className="text-sm text-dark-600 mt-1">Pagamento único</p>
-                  </div>
-
-                  <p className="text-dark-600 mb-6">{plan.description}</p>
-
-                  <Button
-                    variant={plan.popular ? "secondary" : "primary"}
-                    className="w-full mb-6"
-                    icon={ArrowRight}
-                    onClick={() => handleMercadoPagoCheckout(plan)}
-                  >
-                    Comprar Agora
+                  <Button className="w-full mb-6" icon={ArrowRight}>
+                    Contratar
                   </Button>
 
-                  <div className="space-y-3 mb-6">
-                    {plan.features.map((feature, idx) => (
-                      <div key={idx} className="flex items-start gap-3">
+                  <ul className="space-y-3">
+                    {plan.features.map((feature, i) => (
+                      <li key={i} className="flex gap-2">
                         <Check className="w-5 h-5 text-secondary-600" />
-                        <span className="text-sm text-dark-700">{feature}</span>
-                      </div>
+                        <span>{feature}</span>
+                      </li>
                     ))}
+                  </ul>
+
+                  <div className="mt-6 text-sm text-dark-600">
+                    <p><strong>Entrega:</strong> {plan.delivery}</p>
+                    <p><strong>Garantia:</strong> {plan.guarantee}</p>
                   </div>
-
-                  <div className="pt-6 border-t border-dark-200 space-y-2 text-sm text-dark-600">
-                    <div className="flex justify-between">
-                      <span>Entrega:</span>
-                      <span className="font-semibold text-dark-900">
-                        {plan.delivery}
-                      </span>
-                    </div>
-
-                    <div className="flex justify-between">
-                      <span>Garantia:</span>
-                      <span className="font-semibold text-dark-900">
-                        {plan.guarantee}
-                      </span>
-                    </div>
-                  </div>
-
                 </div>
               </Card>
             );

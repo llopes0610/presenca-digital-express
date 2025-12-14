@@ -55,7 +55,7 @@ export function CTA() {
               {
                 icon: Zap,
                 title: 'Resultado rápido',
-                text: '48 horas e você já está vendendo online profissionalmente.',
+                text: '72 horas e você já está vendendo online profissionalmente.',
               },
               {
                 icon: Shield,

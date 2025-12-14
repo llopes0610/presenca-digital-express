@@ -50,7 +50,7 @@ export function Solution() {
           </div>
           <h2 className="heading-lg mb-6">
             Presença Digital Completa{' '}
-            <span className="gradient-text">Em 48 Horas</span>
+            <span className="gradient-text">Em 72 Horas</span>
           </h2>
           <p className="text-xl text-dark-600">
             Tudo que seu negócio precisa para ser encontrado, gerar confiança e começar a vender online.
@@ -116,7 +116,7 @@ export function Solution() {
                   </h4>
                   <ul className="space-y-2 text-dark-600">
                     <li>• A partir de R$ 197 (pagamento único)</li>
-                    <li>• Entrega garantida em 48 horas</li>
+                    <li>• Entrega garantida em 72 horas</li>
                     <li>• Processo ágil e transparente</li>
                     <li>• Hospedagem gratuita incluída</li>
                     <li>• Você tem total autonomia</li>
