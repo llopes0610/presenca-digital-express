@@ -8,7 +8,7 @@ const client = new MercadoPagoConfig({
 const PLANS = {
   basic: {
     title: "Presença Digital Express - Basic",
-    price: 10.90,
+    price: 267.90,
   },
   pro: {
     title: "Presença Digital Express - Pro",
@@ -32,11 +32,13 @@ export async function POST(req: Request) {
 
     const preference = new Preference(client);
 
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://presençaonlineexpress.com.br";
+
     const result = await preference.create({
       body: {
         items: [
           {
-            id: planId, // <- ADICIONE ESTA LINHA
+            id: planId,
             title: plan.title,
             quantity: 1,
             currency_id: "BRL",
@@ -48,11 +50,18 @@ export async function POST(req: Request) {
           email: customerEmail,
         },
         back_urls: {
-          success: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/sucesso`,
-          failure: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/cancelado`,
-          pending: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/pendente`,
+          success: `${siteUrl}/checkout/sucesso`,
+          failure: `${siteUrl}/checkout/cancelado`,
+          pending: `${siteUrl}/checkout/pendente`,
         },
         auto_return: "approved" as const,
+        
+        // ADICIONE ESTAS LINHAS IMPORTANTES:
+        statement_descriptor: "PRESENCA DIGITAL",
+        external_reference: `${planId}-${Date.now()}`,
+        
+        // A URL que o botão "Voltar à loja" vai usar:
+        marketplace: `${siteUrl}`,
       },
     });
 
